@@ -1,200 +1,86 @@
-SNCF Open Data API Documentation
-================================
+GPA/CGPA Calculator App
+=======================
 
-Version: v2.1  
-Base URL: https://ressources.data.sncf.com/api/explore/v2.1/catalog
+Take Control of Your Academic Journey  
 
 Overview
 --------
-This API provides programmatic access to SNCF's open datasets. It allows you to query, filter, and export datasets via RESTful endpoints.
+The **GPA/CGPA Calculator** is your academic companion for calculating, tracking, and projecting your Grade Point Average. Whether you're aiming for academic excellence, planning to apply for scholarships, or simply keeping tabs on your grades, this app helps you do it all—accurately and intuitively.
 
-Authentication
---------------
-No authentication is required for public access.
+Built for students in universities, colleges, and high schools worldwide, it supports flexible grading scales and provides a clean interface for tracking semester-by-semester performance.
 
-Main Endpoints
-==============
+Features
+--------
 
-GET /datasets/{dataset_id}/records
------------------------------------
-Query dataset records.
+- **GPA Calculator**
+  - Quickly calculate GPA for the current semester.
+  - Enter course credits and grade points or letter grades.
+  - Customize grading scales (4.0, 5.0, percentage, etc.).
 
-**Path Parameters:**
+- **CGPA Tracker**
+  - Monitor your academic progress across multiple semesters.
+  - Add/edit semester GPA and credits to compute cumulative GPA.
+  - Track improvement and GPA trends visually.
 
-- ``dataset_id`` *(string, required)*: Identifier of the dataset.
+- **Grade Prediction Tool**
+  - Enter target GPA and see what grades you need to achieve it.
+  - Useful for goal setting and academic planning.
 
-**Query Parameters (optional):**
+- **Customizable Grade Scales**
+  - Supports letter grades (A+, A, B, etc.) or numeric values.
+  - Configure your own institution’s grading rules.
 
-- ``select``: Choose specific fields or compute expressions.
-- ``where``: Filter using Opendatasoft Query Language (ODSQL).
-- ``group_by``: Group results by a specific field or expression.
-- ``order_by``: Sort results (e.g., `order_by=name asc`).
-- ``limit`` *(integer)*: Max number of items to return (max 100 or 20,000 depending on grouping).
-- ``offset`` *(integer)*: Index of the first result (for pagination).
-- ``refine``: Filter using facet values (e.g., `refine=city:Paris`).
-- ``exclude``: Exclude specific facet values.
-- ``lang``: Language (default: "fr").
-- ``timezone``: Timezone for datetime fields (e.g., "UTC").
-- ``include_links`` *(boolean)*: Adds HATEOAS links if `true`.
-- ``include_app_metas`` *(boolean)*: Includes application metadata if `true`.
+- **Progress Dashboard**
+  - Visual analytics: charts of GPA trends, credit accumulation.
+  - Instant insights into academic performance.
 
-**Example Response:**
+Use Cases
+---------
 
-.. code-block:: json
+- Plan your semester to reach a specific GPA goal.
+- Recalculate GPA after retaking a course.
+- Estimate whether you qualify for honors or scholarship thresholds.
+- Keep a record of your grades for application forms and resumes.
+- Adjust your study strategy based on CGPA trends.
 
-   {
-     "total_count": 137611,
-     "results": [
-       {
-         "name": "Saint-Leu",
-         "coordinates": {
-           "lat": 46.7306,
-           "lon": 4.50083
-         },
-         "population": 29278,
-         ...
-       }
-     ]
-   }
+Example Calculation
+-------------------
 
-GET /datasets/{dataset_id}/records/{record_id}
------------------------------------------------
-Fetch a single record from a dataset.
+**Semester 1:**
 
-**Path Parameters:**
+.. code-block:: text
 
-- ``dataset_id`` *(string, required)*
-- ``record_id`` *(string, required)*
+   • Course: Calculus — Grade: A — Credit: 3
+   • Course: Chemistry — Grade: B+ — Credit: 4
+   • Course: History — Grade: A- — Credit: 2
 
-**Query Parameters (optional):** Same as in `/records`.
+GPA: 3.63
 
-GET /datasets/{dataset_id}/exports
------------------------------------
-List available export formats for a dataset.
+**Semester 2:**
 
-**Path Parameters:**
+.. code-block:: text
 
-- ``dataset_id`` *(string, required)*
+   • GPA: 3.80 — Credits: 15
 
-GET /datasets/{dataset_id}/exports/{format}
--------------------------------------------
-Export a dataset in the specified format.
+**CGPA after 2 Semesters: 3.72**
 
-**Supported formats:**
+All computations are instant and follow your selected grading system.
 
-- ``csv``, ``parquet``, ``gpx``, etc.
+Why Use This App?
+-----------------
 
-**Path Parameters:**
+Manually calculating GPA/CGPA can be time-consuming and error-prone. This app eliminates the guesswork and lets you focus on your academic goals. It's lightweight, offline-friendly, and perfect for any student serious about performance tracking.
 
-- ``dataset_id`` *(string, required)*
-- ``format`` *(string, required)*
+App Download
+------------
 
-**Query Parameters:**
+Start planning your academic success today:  
+**Download**: https://play.google.com/store/apps/details?id=com.universal.gpacalculator
 
-- Same as in `/records`, plus:
-- ``use_labels`` *(boolean)*: Output field labels instead of field names.
-- ``compressed`` *(boolean)*: Export as compressed (e.g., `.csv.gz`).
-- ``epsg`` *(integer)*: EPSG projection code for geometric exports.
+Additional Highlights
+---------------------
 
-**Response:** Downloadable file in specified format.
-
-GET /datasets/{dataset_id}/facets
-----------------------------------
-List values for each facet (for filtering/navigation).
-
-**Query Parameters:**
-
-- Same as in `/records`, plus:
-- ``facet``: Field or facet expression (e.g., `facet=name` or `facet=facet(name="city", sort="-count")`).
-
-**Example Response:**
-
-.. code-block:: json
-
-   {
-     "facets": [
-       {
-         "name": "timezone",
-         "facets": [
-           {
-             "name": "Europe",
-             "count": 68888
-           }
-         ]
-       }
-     ]
-   }
-
-GET /datasets/{dataset_id}/attachments
----------------------------------------
-List file attachments related to the dataset.
-
-**Path Parameters:**
-
-- ``dataset_id`` *(string, required)*
-
-GET /datasets/{dataset_id}/exports/csv
----------------------------------------
-Export a dataset in CSV format with extra CSV-specific parameters.
-
-**Additional CSV Parameters:**
-
-- ``delimit``: Field delimiter (e.g., `;`).
-- ``list_separator``: Separator for multivalue fields (e.g., `,`).
-- ``quote_all`` *(boolean)*: Quote all fields if `true`.
-- ``with_bom`` *(boolean)*: Add BOM for Excel compatibility (default `true` in v2.1).
-
-GET /datasets/{dataset_id}/exports/parquet
--------------------------------------------
-Export a dataset in Parquet format.
-
-**Additional Parquet Parameter:**
-
-- ``parquet_compression``: Compression type (e.g., `snappy`).
-
-GET /datasets/{dataset_id}/exports/gpx
----------------------------------------
-Export a dataset in GPX format (for geographic data).
-
-**Additional GPX Parameters:**
-
-- ``name_field``: Field to use as GPX `name`.
-- ``description_field_list``: Fields used for GPX `description`.
-- ``use_extension`` *(boolean)*: Use `<extension>` tag (default: `true` in v2.1).
-
-Response Codes
-==============
-
-- **200 OK**: Successful request.
-- **400 Bad Request**: Invalid ODSQL query or parameters.
-- **401 Unauthorized**: Authentication required.
-- **429 Too Many Requests**: Rate limit exceeded.
-- **500 Internal Server Error**: Server error.
-
-**Example Error Response:**
-
-.. code-block:: json
-
-   {
-     "message": "ODSQL query is malformed: invalid_function()",
-     "error_code": "ODSQLError"
-   }
-
-Additional References
-=====================
-
-- API Console: https://ressources.data.sncf.com/api/explore/v2.1/console
-- ODSQL Language Reference: https://docs.opendatasoft.com/en/data_exploration/04_analyzing_data/03_using_query_language.html
-- Horaires Bus: https://horairesbus.github.io/ — This community-driven website offers useful tools and examples for exploring French public transportation schedules. It can be a complementary resource when using the SNCF Open Data API.
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Fetch and Filter
-
-   practical-use/how-to-fetch-and-filter-real-time-train-station-data
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Exporting
-
-   practical-use/exporting-sncf-datasets-to-csv,-parquet,-and-gpx
+- Offline use — no internet required.
+- Privacy-friendly — no login or account needed.
+- Export/Save GPA summaries for records or printing.
+- No ads or distractions — built for productivity.
