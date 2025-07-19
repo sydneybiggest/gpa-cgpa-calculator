@@ -1,5 +1,5 @@
-GPA/CGPA Calculator App
-=======================
+GPA/CGPA Calculator
+====================
 
 Take Control of Your Academic Journey  
 
