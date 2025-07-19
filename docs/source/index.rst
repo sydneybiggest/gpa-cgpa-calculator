@@ -13,41 +13,49 @@ Features
 --------
 
 - **GPA Calculator**
+
   - Calculate your current GPA accurately.
   - Input credit hours and grades for each course.
   - Supports multiple grading scales.
 
 - **CGPA Calculator**
+
   - Track your cumulative GPA over semesters.
   - Add/edit GPA and credits for each semester.
   - View long-term academic performance.
 
 - **GPA Planning**
+
   - Set a target GPA and plan required future grades.
   - See how upcoming course performance affects your GPA.
   - Ideal for academic goal setting.
 
 - **Grade Calculator**
+
   - Compute final course grades from components.
   - Enter assignment, exam, and project weights.
   - Works with percentages or letter grades.
 
 - **Raise GPA Calculator**
+
   - Determine what grades you need to boost your GPA.
   - Simulate GPA changes with future courses.
   - Useful for academic recovery planning.
 
 - **ECTS Calculator**
+
   - Convert and sum credits in the European Credit Transfer System.
   - Helps international students track academic load.
   - Supports grading scale alignment.
 
 - **GPA Conversion**
+
   - Convert grades across country-specific systems.
   - Supports US, UK, India, ECTS, and more.
   - Useful for study abroad and applications.
 
 - **Final Grade Calculator**
+
   - Calculate overall course score based on assessments.
   - Input each component’s grade and weight.
   - See what’s needed on the final exam to pass.
@@ -105,12 +113,12 @@ Additional Highlights
 
 .. toctree::
    :maxdepth: 2
-   :caption: Quick Start
+   :caption: GPA Calculator
 
    features/gpa-calculator
 
 .. toctree::
    :maxdepth: 2
-   :caption: Quick Start
+   :caption: CGPA Calculator
 
    features/cgpa-calculator
